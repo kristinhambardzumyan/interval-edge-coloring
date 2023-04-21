@@ -102,7 +102,15 @@ bool IntervalEdgeColoring::RecursiveColoring(int row, int column) {
     }
     std::vector<int> possible_colors;
     DeterminePossibleColors(row, column, possible_colors);
-    std::random_shuffle(possible_colors.begin(), possible_colors.end());
+    
+    // Shuffling the colors twice significantly speeds up coloring 
+    // for some graphs(with fewer edges,...).
+    // We need to analyze this more.
+    // std::random_device rd;
+    // std::mt19937 g(rd());
+    std::default_random_engine g(1234);
+    std::shuffle(possible_colors.begin(), possible_colors.end(), g);
+    
     int count = 0;
     bool continue_loop;
     do {
@@ -122,7 +130,7 @@ bool IntervalEdgeColoring::RecursiveColoring(int row, int column) {
 void IntervalEdgeColoring::DeterminePossibleColors(int row, int column, std::vector<int>& possible_colors) {
     int color = 1;
     int down_limit = 1;
-    int up_limit = 24;
+    int up_limit = 28;
     bool is_arr_col = arr_col_[row][column] != 0;
     bool is_arr_row = arr_row_[row][column] != 0;
     if (is_arr_col) {
@@ -158,19 +166,23 @@ void IntervalEdgeColoring::DeterminePossibleColors(int row, int column, std::vec
         }
         used_colors >>= 1;
     }
-    // Improves speed for some graphs(with fewer edges?)
-    // More analysis needed to verify edge cases.
-    std::random_shuffle(possible_colors.begin(), possible_colors.end());
+    
+    // Speeds up coloring for certain graphs(with fewer edges,...).
+    // We need to do more analysis.
+    // std::random_device rd;
+    // std::mt19937 g(rd());
+    std::default_random_engine g(1234);
+    std::shuffle(possible_colors.begin(), possible_colors.end(), g);
 }
 
 void IntervalEdgeColoring::SetColor(int row, int column, int color) {
     coloring_[row][column] = color;
-            for (int i = row + 1; i < rows_; ++i) {
-                arr_col_[i][column] |= 1 << color;
-            }
-            for (int j = column + 1; j < columns_; ++j) {
-                arr_row_[row][j] |= 1 << color;
-            }
+    for (int i = row + 1; i < rows_; ++i) {
+        arr_col_[i][column] |= 1 << color;
+    }
+    for (int j = column + 1; j < columns_; ++j) {
+        arr_row_[row][j] |= 1 << color;
+    }
 }
 
 void IntervalEdgeColoring::ClearColor(int row, int column) {
@@ -197,20 +209,20 @@ int IntervalEdgeColoring::GetMinUsedColor(int used_colors) {
 int IntervalEdgeColoring::GetMaxUsedColor(int used_colors) {
     int x = 0;
     int color;
-        while (used_colors != 0) {
-            if (used_colors & 1) {
-                color = x;
-            }
-            ++x;
-            used_colors >>= 1;
+    while (used_colors != 0) {
+        if (used_colors & 1) {
+            color = x;
         }
+        ++x;
+        used_colors >>= 1;
+    }
     return color;
 }
 
 // Get the min used color in a given row of a graph coloring.
-// Used by IsValidColoring().
+// Used by IsValidColoring()
 int IntervalEdgeColoring::GetMinColorInRow(int row) {
-    int min_color = 30; // Initialize with a high-value color that cannot be assigned.
+    int min_color = 33; // initialize with a high-value color that cannot be assigned
     for (int column = 0; column < columns_; ++column) {
         if (coloring_[row][column]) {
             if (min_color > coloring_[row][column]) {
@@ -222,7 +234,7 @@ int IntervalEdgeColoring::GetMinColorInRow(int row) {
 }
 
 int IntervalEdgeColoring::GetMinColorInColumn(int column) {
-    int min_color = 30; // Initialize with a high-value color that cannot be assigned.
+    int min_color = 33; // initialize with a high-value color that cannot be assigned
         for (int row = 0; row < rows_; ++row) {
             if (coloring_[row][column]) {
                 if (coloring_[row][column] < min_color) {
@@ -254,7 +266,7 @@ bool IntervalEdgeColoring::IsValidColoring() {
                 min += 1;
             }
         }
-        if(num != 0 && count != 1) {
+        if (num != 0 && count != 1) {
             return 0;
         }
     }
@@ -270,7 +282,7 @@ bool IntervalEdgeColoring::IsValidColoring() {
                 min += 1;
             }
         }
-        if(num != 0 && count != 1) {
+        if (num != 0 && count != 1) {
             return 0;
         }
     }
