@@ -89,7 +89,7 @@ Graphs 14769-14774:
 
 Visualization of the coloring of graph 14769(the 1st one in the image above):
 
-![coloring](images/visualize-coloring.png)
+![coloring](images/visualized-coloring.png)
 
 
 
