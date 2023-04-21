@@ -283,7 +283,7 @@ void IntervalEdgeColoring::OutputColoredGraphs(std::string graph6) {
     output_file << '<' << graph6 << "> <";
     for (std::size_t row = 0; row < coloring_.size(); ++row) {
         for (std::size_t column = 0; column < coloring_[row].size(); ++column) {
-            output_file << static_cast<char>((coloring_[row][column] + 65));
+            output_file << static_cast<char>((coloring_[row][column] + 94));
         }
     }
     output_file << "> <" << elapsed_time_ << '>' << std::endl;
@@ -293,7 +293,7 @@ void IntervalEdgeColoring::OutputColoredGraphs(std::string graph6) {
 void IntervalEdgeColoring::OutputTimeLimitedGraphs(std::string graph6) {
     std::ofstream output_file;
     output_file.open("results/time-limited-graphs.txt", std::ios::app);
-    output_file << '<' << graph6 << '>' << std::endl;
+    output_file << graph6 << std::endl;
     output_file.close();
 }
 
