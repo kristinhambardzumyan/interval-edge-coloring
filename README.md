@@ -54,7 +54,7 @@ There are 3 types of output files:
 ```
 Colored graphs are encoded in graph6 format: https://users.cecs.anu.edu.au/~bdm/data/formats.txt
 
-Edge colorings are encoded in ASCII, where each color has 65 added to it.
+Edge colorings are encoded in ASCII, where each color has 94 added to it.
 
 `non-colorable-graphs` file contains:
 ```
@@ -62,7 +62,7 @@ Edge colorings are encoded in ASCII, where each color has 65 added to it.
 ```
 `time-limited-graphs`:
 ```
-<graph6>
+graph6
 ```
 
 ## __Example__
