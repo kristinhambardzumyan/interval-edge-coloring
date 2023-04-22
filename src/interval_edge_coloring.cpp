@@ -1,5 +1,6 @@
 #include <algorithm>
 #include <chrono>
+#include <ctime>
 #include <fstream>
 #include <iostream>
 #include <vector>
@@ -108,7 +109,8 @@ bool IntervalEdgeColoring::RecursiveColoring(int row, int column) {
     // We need to analyze this more.
     // std::random_device rd;
     // std::mt19937 g(rd());
-    std::default_random_engine g(1234);
+    //std::default_random_engine g(1234);
+    std::default_random_engine g(std::time(nullptr));
     std::shuffle(possible_colors.begin(), possible_colors.end(), g);
     
     int count = 0;
@@ -171,7 +173,8 @@ void IntervalEdgeColoring::DeterminePossibleColors(int row, int column, std::vec
     // We need to do more analysis.
     // std::random_device rd;
     // std::mt19937 g(rd());
-    std::default_random_engine g(1234);
+    // std::default_random_engine g(1234);
+    std::default_random_engine g(std::time(nullptr));
     std::shuffle(possible_colors.begin(), possible_colors.end(), g);
 }
 
