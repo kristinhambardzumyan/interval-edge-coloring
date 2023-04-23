@@ -3,6 +3,7 @@
 #include <ctime>
 #include <fstream>
 #include <iostream>
+#include <random>
 #include <vector>
 
 #include "../include/interval_edge_coloring.h"
