@@ -77,7 +77,7 @@ class IntervalEdgeColoring {
 
   std::chrono::time_point<std::chrono::steady_clock> start_time_;
   long long elapsed_time_ = 0;
-  int time_limit_ = 1000; // in milliseconds (1min)
+  int time_limit_ = 1000; // in milliseconds (1sec)
   bool time_limited = false;
 };
 
