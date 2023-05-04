@@ -2,6 +2,7 @@ import os
 import time
 import subprocess
 import ray
+import psutil
 
 ray.init()
 
@@ -45,7 +46,7 @@ def merge_output_files(input_prefix, output_file_name, K):
 
 def main(time_limit):
     input_file = 'results/time-limited-5-12-d2.txt'
-    K = 60 # number of cores, multiprocessing.cpu_count()
+    K = 60 # number of cores, psutil.cpu_count()
     split_input_file(input_file, K)
     futures = []
     for i in range(K):
