@@ -8,7 +8,7 @@
 
 class IntervalEdgeColoring {
  public:
-  
+ 
   void AdjacencyFromGraph6(const std::string graph6);
 
   void BiadjacencyFromAdjacency();
@@ -37,11 +37,7 @@ class IntervalEdgeColoring {
   // Get the min/max used color in a particular row/column.
   int GetMinUsedColor(int n);
   int GetMaxUsedColor(int n);
-
-  void OutputColoredGraphs(std::string graph6);
-  void OutputUncoloredGraphs(std::string graph6);
-  void OutputTimeLimitedGraphs(std::string graph6);
-
+  
   bool IsTimeLimited();
 
   bool IsValidColoring();
@@ -53,8 +49,17 @@ class IntervalEdgeColoring {
 
   void SetStartTime();
   void SetElapsedTime();
+  void SetTimeLimit(int time_limit);
   long long TimeElapsed();
-  
+
+ const std::vector<std::vector<int>>& GetColoring() const {
+    return coloring_;
+ }
+ 
+ long long GetElapsedTime() {
+  return elapsed_time_;
+ }
+
  private:
   int vertices_;
   int rows_;
@@ -77,7 +82,7 @@ class IntervalEdgeColoring {
 
   std::chrono::time_point<std::chrono::steady_clock> start_time_;
   long long elapsed_time_ = 0;
-  int time_limit_ = 1000; // in milliseconds (1sec)
+  int time_limit_ = 0; // setting the time limit is done in python code
   bool time_limited = false;
 };
 

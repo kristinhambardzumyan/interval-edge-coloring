@@ -104,16 +104,6 @@ bool IntervalEdgeColoring::RecursiveColoring(int row, int column) {
     }
     std::vector<int> possible_colors;
     DeterminePossibleColors(row, column, possible_colors);
-    
-    // Shuffling the colors twice significantly speeds up coloring 
-    // for some graphs(with fewer edges,...).
-    // We need to analyze this more.
-    // std::random_device rd;
-    // std::mt19937 g(rd());
-    //std::default_random_engine g(1234);
-    std::default_random_engine g(std::time(nullptr));
-    std::shuffle(possible_colors.begin(), possible_colors.end(), g);
-    
     int count = 0;
     bool continue_loop;
     do {
@@ -169,24 +159,18 @@ void IntervalEdgeColoring::DeterminePossibleColors(int row, int column, std::vec
         }
         used_colors >>= 1;
     }
-    
-    // Speeds up coloring for certain graphs(with fewer edges,...).
-    // We need to do more analysis.
-    // std::random_device rd;
-    // std::mt19937 g(rd());
-    // std::default_random_engine g(1234);
     std::default_random_engine g(std::time(nullptr));
     std::shuffle(possible_colors.begin(), possible_colors.end(), g);
 }
 
 void IntervalEdgeColoring::SetColor(int row, int column, int color) {
     coloring_[row][column] = color;
-    for (int i = row + 1; i < rows_; ++i) {
-        arr_col_[i][column] |= 1 << color;
-    }
-    for (int j = column + 1; j < columns_; ++j) {
-        arr_row_[row][j] |= 1 << color;
-    }
+        for (int i = row + 1; i < rows_; ++i) {
+            arr_col_[i][column] |= 1 << color;
+        }
+        for (int j = column + 1; j < columns_; ++j) {
+            arr_row_[row][j] |= 1 << color;
+        }
 }
 
 void IntervalEdgeColoring::ClearColor(int row, int column) {
@@ -213,20 +197,20 @@ int IntervalEdgeColoring::GetMinUsedColor(int used_colors) {
 int IntervalEdgeColoring::GetMaxUsedColor(int used_colors) {
     int x = 0;
     int color;
-    while (used_colors != 0) {
-        if (used_colors & 1) {
-            color = x;
+        while (used_colors != 0) {
+            if (used_colors & 1) {
+                color = x;
+            }
+            ++x;
+            used_colors >>= 1;
         }
-        ++x;
-        used_colors >>= 1;
-    }
     return color;
 }
 
 // Get the min used color in a given row of a graph coloring.
-// Used by IsValidColoring()
+// Used by IsValidColoring().
 int IntervalEdgeColoring::GetMinColorInRow(int row) {
-    int min_color = 33; // initialize with a high-value color that cannot be assigned
+    int min_color = 33; // Initialize with a high-value color that cannot be assigned.
     for (int column = 0; column < columns_; ++column) {
         if (coloring_[row][column]) {
             if (min_color > coloring_[row][column]) {
@@ -238,7 +222,7 @@ int IntervalEdgeColoring::GetMinColorInRow(int row) {
 }
 
 int IntervalEdgeColoring::GetMinColorInColumn(int column) {
-    int min_color = 33; // initialize with a high-value color that cannot be assigned
+    int min_color = 33; // Initialize with a high-value color that cannot be assigned.
         for (int row = 0; row < rows_; ++row) {
             if (coloring_[row][column]) {
                 if (coloring_[row][column] < min_color) {
@@ -270,7 +254,7 @@ bool IntervalEdgeColoring::IsValidColoring() {
                 min += 1;
             }
         }
-        if (num != 0 && count != 1) {
+        if(num != 0 && count != 1) {
             return 0;
         }
     }
@@ -286,38 +270,11 @@ bool IntervalEdgeColoring::IsValidColoring() {
                 min += 1;
             }
         }
-        if (num != 0 && count != 1) {
+        if(num != 0 && count != 1) {
             return 0;
         }
     }
     return true;
-}
-
-void IntervalEdgeColoring::OutputColoredGraphs(std::string graph6) {
-    std::ofstream output_file;
-    output_file.open("results/colorable-graphs.txt", std::ios::app);
-    output_file << '<' << graph6 << "> <";
-    for (std::size_t row = 0; row < coloring_.size(); ++row) {
-        for (std::size_t column = 0; column < coloring_[row].size(); ++column) {
-            output_file << static_cast<char>((coloring_[row][column] + 94));
-        }
-    }
-    output_file << "> <" << elapsed_time_ << '>' << std::endl;
-    output_file.close();
-}
-
-void IntervalEdgeColoring::OutputTimeLimitedGraphs(std::string graph6) {
-    std::ofstream output_file;
-    output_file.open("results/time-limited-graphs.txt", std::ios::app);
-    output_file << graph6 << std::endl;
-    output_file.close();
-}
-
-void IntervalEdgeColoring::OutputUncoloredGraphs(std::string graph6) {
-    std::ofstream output_file;
-    output_file.open("results/non-colorable-graphs.txt", std::ios::app);
-    output_file << '<' << graph6 << "> <" << elapsed_time_ << '>' << std::endl;
-    output_file.close();
 }
 
 void IntervalEdgeColoring::SetStartTime() {
@@ -327,6 +284,10 @@ void IntervalEdgeColoring::SetStartTime() {
 // for each colored graph
 void IntervalEdgeColoring::SetElapsedTime() {
     elapsed_time_ = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - start_time_).count();
+}
+
+void IntervalEdgeColoring::SetTimeLimit(int time_limit) {
+    time_limit_ = time_limit;
 }
 
 long long IntervalEdgeColoring::TimeElapsed() {

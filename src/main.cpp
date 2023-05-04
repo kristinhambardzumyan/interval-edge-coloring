@@ -4,16 +4,22 @@
 #include "../include/interval_edge_coloring.h"
 
 int main(int argc, char* argv[]) {
-    if (argc != 2) {
-        std::cerr << "Usage: " << argv[0] << " input-file\n";
+    if (argc != 6) {
+        std::cerr << "Usage: " << argv[0] << " input-file colorables-file non-colorables-file time-limited-file time_limit in ms\n";
         return 1;
     }
-    GraphFileHandler file_handler(argv[1]);
-    std::chrono::time_point<std::chrono::steady_clock> start_time = std::chrono::steady_clock::now();
-    file_handler.ProcessGraphs();
-    std::chrono::time_point<std::chrono::steady_clock> end_time = std::chrono::steady_clock::now();
-    auto duration_in_sec =  std::chrono::duration_cast<std::chrono::seconds>(end_time - start_time).count();
-    auto duration_in_ms =  std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time).count();
-    std::cout << "Execution time: " << duration_in_sec << " seconds" << std::endl;
-    std::cout << "Execution time: " << duration_in_ms << " ms" << std::endl;
+    std::string input_file = argv[1];
+    std::string colorables_file = argv[2];
+    std::string non_colorables_file = argv[3];
+    std::string time_limited_file = argv[4];
+    int time_limit = std::stoi(argv[5]);
+
+    GraphFileHandler file_handler(input_file,colorables_file, non_colorables_file, time_limited_file);
+    
+    // std::chrono::time_point<std::chrono::steady_clock> start_time = std::chrono::steady_clock::now();
+    file_handler.ProcessGraphs(time_limit);
+    // std::chrono::time_point<std::chrono::steady_clock> end_time = std::chrono::steady_clock::now();
+    // auto duration_in_sec =  std::chrono::duration_cast<std::chrono::seconds>(end_time - start_time).count();
+    // auto duration_in_ms =  std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time).count();
+    // std::cout << "Coloring time: " << duration_in_sec << " sec/" << duration_in_ms << " ms" << std::endl;
 }
