@@ -9,13 +9,13 @@ GraphFileHandler::GraphFileHandler(std::string input_file_name,
                                    std::string non_colorables_file_name,
                                    std::string time_limited_file_name) {
     input_file_.open(input_file_name);
-        if (!input_file_) {
-            std::cerr << "Error: Could not open file!" << std::endl;
-            exit(1);
-        }
-        colorables_file_name_ = colorables_file_name;
-        non_colorables_file_name_ = non_colorables_file_name;
-        time_limited_file_name_ = time_limited_file_name;
+    if (!input_file_) {
+        std::cerr << "Error: Could not open file!" << std::endl;
+        exit(1);
+    }
+    colorables_file_name_ = colorables_file_name;
+    non_colorables_file_name_ = non_colorables_file_name;
+    time_limited_file_name_ = time_limited_file_name;
 }
 
 void GraphFileHandler::ProcessGraphs(int time_limit) {

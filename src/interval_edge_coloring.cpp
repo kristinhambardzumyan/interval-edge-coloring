@@ -139,8 +139,8 @@ void IntervalEdgeColoring::DeterminePossibleColors(int row, int column, std::vec
         }
     }
     if (is_arr_col) {
-            color = GetMinUsedColor(arr_col_[row][column]) + deg_col_[column] - 1;
-            if (up_limit > color) {
+        color = GetMinUsedColor(arr_col_[row][column]) + deg_col_[column] - 1;
+        if (up_limit > color) {
             up_limit = color;
         }
     }
@@ -254,7 +254,7 @@ bool IntervalEdgeColoring::IsValidColoring() {
                 min += 1;
             }
         }
-        if(num != 0 && count != 1) {
+        if (num != 0 && count != 1) {
             return 0;
         }
     }
@@ -270,7 +270,7 @@ bool IntervalEdgeColoring::IsValidColoring() {
                 min += 1;
             }
         }
-        if(num != 0 && count != 1) {
+        if (num != 0 && count != 1) {
             return 0;
         }
     }
