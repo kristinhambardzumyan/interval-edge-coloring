@@ -46,7 +46,7 @@ def merge_output_files(input_prefix, output_file_name, K):
 
 def main(time_limit):
     input_file = 'results/time-limited-5-12-d2.txt'
-    K = 60 # number of cores, psutil.cpu_count()
+    K = 8 # number of cores, psutil.cpu_count()
     split_input_file(input_file, K)
     futures = []
     for i in range(K):
@@ -89,16 +89,16 @@ def main(time_limit):
 if __name__ == '__main__':
     total_start_time = time.time()
     time_limit = 100 # in ms
-    iteration = 0
-    while iteration < 2:
-        print(f'Iteration {iteration}')
-        start_time = time.time()
-        main(time_limit)
-        end_time = time.time()
-        total_time = end_time - start_time
-        print(f'Total time: {total_time} seconds ({total_time/60:.2f} minutes)')
-        print()
-        iteration += 1
+    # iteration = 0
+    # while iteration < 2:
+    #     print(f'Iteration {iteration}')
+    #     start_time = time.time()
+    main(time_limit)
+        # end_time = time.time()
+        # total_time = end_time - start_time
+        # print(f'Total time: {total_time} seconds ({total_time/60:.2f} minutes)')
+        # print()
+        # iteration += 1
     
     total_end_time = time.time()
     total_time = total_end_time - total_start_time

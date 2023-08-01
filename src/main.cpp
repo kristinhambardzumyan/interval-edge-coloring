@@ -12,7 +12,7 @@ int main(int argc, char* argv[]) {
     std::string colorables_file = argv[2];
     std::string non_colorables_file = argv[3];
     std::string time_limited_file = argv[4];
-    int time_limit = std::stoi(argv[5]);
+    long long time_limit = std::stol(argv[5]);
 
     GraphFileHandler file_handler(input_file,colorables_file, non_colorables_file, time_limited_file);
     

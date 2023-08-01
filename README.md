@@ -12,6 +12,7 @@ Only undirected graphs, without loops and multiple edges are considered.
 
 ## __Requirements__
  C++ compiler (such as g++ version 11 or higher)
+ Python interpreter
 
 ## __Usage__
 #### __Generate Graphs__
@@ -36,7 +37,7 @@ g++ -o bin/coloring src/main.cpp src/graph_file_handler.cpp src/interval_edge_co
 
 To run the program:
 ```
-./bin/coloring data/<filename>.txt
+python3 src/split_and_process_data.py
 ```
 
 ## __Results__
@@ -78,7 +79,7 @@ Build and run:
 
 ```
 g++ -o bin/coloring src/main.cpp src/graph_file_handler.cpp src/interval_edge_coloring.cpp
-./bin/coloring data/4-13-d2.txt 
+python3 src/split_and_process_data.py 
 ```
 A total of 51616 graphs were generated. 
 Some of these were colored to demonstrate the algorithm, and saved in the `results/colorable-graphs.txt`.

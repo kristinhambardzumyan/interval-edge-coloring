@@ -5,6 +5,9 @@
 #include <cstddef>
 #include <string>
 #include <vector>
+#include <random>
+#include <chrono>
+#include <ctime>
 
 class IntervalEdgeColoring {
  public:
@@ -84,6 +87,7 @@ class IntervalEdgeColoring {
   long long elapsed_time_ = 0;
   int time_limit_ = 0; // set in python code
   bool time_limited = false;
+
 };
 
 #endif // INTERVAL_EDGE_COLORING_H

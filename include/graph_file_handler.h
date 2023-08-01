@@ -13,7 +13,7 @@ class GraphFileHandler {
                    std::string non_colorables_file_name,
                    std::string time_limited_file_name);
                    
-  void ProcessGraphs(int time_limit);
+  void ProcessGraphs(long long time_limit);
   void OutputColoredGraphs(std::string graph6, 
                            std::vector<std::vector<int>> coloring, 
                            long long elapsed_time);

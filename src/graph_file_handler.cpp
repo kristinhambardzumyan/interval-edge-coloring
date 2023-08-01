@@ -18,7 +18,7 @@ GraphFileHandler::GraphFileHandler(std::string input_file_name,
     time_limited_file_name_ = time_limited_file_name;
 }
 
-void GraphFileHandler::ProcessGraphs(int time_limit) {
+void GraphFileHandler::ProcessGraphs(long long time_limit) {
     IntervalEdgeColoring graph_iec;
     graph_iec.SetTimeLimit(time_limit);
     std::string graph6;
