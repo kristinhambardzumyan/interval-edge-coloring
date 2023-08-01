@@ -12,6 +12,7 @@ Only undirected graphs, without loops and multiple edges are considered.
 
 ## __Requirements__
  C++ compiler (such as g++ version 11 or higher)
+ 
  Python interpreter
 
 ## __Usage__
