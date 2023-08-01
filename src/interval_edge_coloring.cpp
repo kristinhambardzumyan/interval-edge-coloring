@@ -160,7 +160,7 @@ void IntervalEdgeColoring::DeterminePossibleColors(int row, int column, std::vec
         used_colors >>= 1;
     }
     std::default_random_engine g(std::time(nullptr));
-   // std::default_random_engine g(std::chrono::high_resolution_clock::now().time_since_epoch().count());
+    // std::default_random_engine g(std::chrono::high_resolution_clock::now().time_since_epoch().count());
    
     std::shuffle(possible_colors.begin(), possible_colors.end(), g);
 }
