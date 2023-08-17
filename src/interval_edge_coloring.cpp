@@ -283,27 +283,27 @@ void IntervalEdgeColoring::SetStartTime() {
     start_time_ = std::chrono::steady_clock::now();
   }
 
-// for each colored graph
-void IntervalEdgeColoring::SetElapsedTime() {
-    elapsed_time_ = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - start_time_).count();
-}
-
 // // for each colored graph
 // void IntervalEdgeColoring::SetElapsedTime() {
-//     elapsed_time_ = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - start_time_).count();
+//     elapsed_time_ = std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - start_time_).count();
 // }
+
+// for each colored graph
+void IntervalEdgeColoring::SetElapsedTime() {
+    elapsed_time_ = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - start_time_).count();
+}
 
 void IntervalEdgeColoring::SetTimeLimit(int time_limit) {
     time_limit_ = time_limit;
 }
 
-long long IntervalEdgeColoring::TimeElapsed() {
-    return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - start_time_).count();
-}
-
 // long long IntervalEdgeColoring::TimeElapsed() {
-//     return std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - start_time_).count();
+//     return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::steady_clock::now() - start_time_).count();
 // }
+
+long long IntervalEdgeColoring::TimeElapsed() {
+    return std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::steady_clock::now() - start_time_).count();
+}
 
 bool IntervalEdgeColoring::IsTimeLimited() {
     return time_limited;

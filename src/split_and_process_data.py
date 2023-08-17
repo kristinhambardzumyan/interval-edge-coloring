@@ -45,7 +45,7 @@ def merge_output_files(input_prefix, output_file_name, K):
                 continue
 
 def main(time_limit):
-    input_file = 'results/time-limited-5-12-d2.txt'
+    input_file = 'results/time-limited-10000.txt'
     K = 8 # number of cores, psutil.cpu_count()
     split_input_file(input_file, K)
     futures = []
@@ -60,9 +60,9 @@ def main(time_limit):
     ray.get(futures)
 
     # Merge the output files into a single output file for each condition(colorable/non/time limited)
-    merge_output_files('colorables', 'results/colorables-5-12-d2.txt', K)
-    merge_output_files('non-colorables', 'results/non-colorables-5-12-d2.txt', K)
-    merge_output_files('time-limited', 'results/time-limited-5-12-d2.txt', K)
+    merge_output_files('colorables', 'results/colorables-10000.txt', K)
+    merge_output_files('non-colorables', 'results/non-colorables-10000.txt', K)
+    merge_output_files('time-limited', 'results/time-limited-10000.txt', K)
 
     for i in range(K):
         input_file_name = f'input-chunk-{i}.txt'
@@ -88,7 +88,7 @@ def main(time_limit):
 
 if __name__ == '__main__':
     total_start_time = time.time()
-    time_limit = 100 # in ms
+    time_limit = 500 # in microsecond 
     # iteration = 0
     # while iteration < 2:
     #     print(f'Iteration {iteration}')
